@@ -3,7 +3,7 @@
 ## Objetivos
 
 + Desenvolver a implementação de programas orientados a objetos em Java;
-+ Introduzir conceitos sobre programação para dispositivos móvei;
++ Introduzir conceitos sobre programação para dispositivos móvel;
 + Desenvolver a implementação de programas para Android.
 
 ## Conteúdo Programático
