@@ -9,7 +9,7 @@
 ## Conteúdo Programático
 
 1. [Fundamentos e paradigmas de programação para dispositivos móveis]()
-1. [Introdução ao Android]()
+1. [Introdução ao Android](https://bit.ly/327SQQe)
 1. [Conceitos fundamentais]()
 1. [Estrutura e arquitetura de uma aplicação]()
 1. [Activity, Layouts, Telas, Intent, Services e BroadCastReceiver]()
