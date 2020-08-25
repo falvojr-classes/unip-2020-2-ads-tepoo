@@ -8,7 +8,7 @@
 
 ## Conteúdo Programático
 
-1. Fundamentos e paradigmas de programação para dispositivos móveis (Teoria)
+1. Fundamentos e paradigmas de programação para dispositivos móveis (teoria)
 1. [Introdução ao Android](https://bit.ly/327SQQe)
 1. [Conceitos fundamentais]()
 1. [Estrutura e arquitetura de uma aplicação]()
