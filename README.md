@@ -9,10 +9,10 @@
 ## Conteúdo Programático
 
 1. [Introdução ao Android](https://bit.ly/327SQQe)
-1. [Conceitos fundamentais]()
-1. [Estrutura e arquitetura de uma aplicação]()
-1. [Activity, Layouts, Telas, Intent, Services e BroadCastReceiver]()
-1. [Persistência de dados]()
+1. [Conceitos fundamentais](https://bit.ly/2FWNj7S)
+1. [Estrutura e arquitetura de uma aplicação](https://bit.ly/34xhpsX)
+1. [Activity, Layouts, Telas, Intent, Services e BroadCastReceiver](https://bit.ly/34v7pAk)
+1. Persistência de dados
 
 ## Links Úteis
 
