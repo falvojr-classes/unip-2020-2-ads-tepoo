@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">PIM</string>
+    <string name="app_name" translatable="false">PIM</string>
+
+    <string name="hello_world">Hello World!</string>
 </resources>
