@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">PIM</string>
 
-    <string name="hello_world">Hello World!</string>
+    <string name="label_login" translatable="false">Login</string>
+    <string name="label_email" translatable="false">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_sign_in">Sign In</string>
 </resources>
