@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_register">Registrar</string>
+
     <string name="label_password">Senha</string>
     <string name="label_sign_in">Entrar</string>
+    <string name="label_sign_up">Registrar</string>
+
+    <string name="error_required_field">Campo obrigatório.</string>
+    <string name="error_invalid_email">Email inválido.</string>
 </resources>
