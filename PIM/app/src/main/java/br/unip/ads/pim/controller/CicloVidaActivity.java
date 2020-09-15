@@ -1,4 +1,4 @@
-package br.unip.ads.pim;
+package br.unip.ads.pim.controller;
 
 import android.os.Bundle;
 import android.util.Log;

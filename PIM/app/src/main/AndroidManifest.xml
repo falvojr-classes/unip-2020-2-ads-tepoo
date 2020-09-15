@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".controller.LoginActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".controller.RegisterActivity"
             android:label="@string/title_register"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".controller.LoginActivity" />
     </application>
 
 </manifest>

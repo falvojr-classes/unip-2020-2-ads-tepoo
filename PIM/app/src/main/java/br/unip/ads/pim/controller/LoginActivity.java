@@ -1,4 +1,4 @@
-package br.unip.ads.pim;
+package br.unip.ads.pim.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,19 +8,22 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
-import br.unip.ads.pim.databinding.ActivityMainBinding;
+import br.unip.ads.pim.R;
+import br.unip.ads.pim.databinding.ActivityLoginBinding;
 
-public class MainActivity extends CicloVidaActivity {
+public class LoginActivity extends CicloVidaActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        // Como usamos a tag <layout> no xml, podemos obter um objeto de Binding.
+        // Isso envita o uso repetitivo do método findViewById.
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
     }
 
-    public void clickSignIn(View view) {
+    public void onClickSignIn(View view) {
         // TODO Validar os campos de Login
         String email = binding.etEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -33,9 +36,9 @@ public class MainActivity extends CicloVidaActivity {
         // TODO Integrar com o Login via API
     }
 
-    public void clickRegister(View view) {
+    public void onClickRegister(View view) {
         // Criar a “Intenção” de redirecionar para a Activity de Registro.
-        Intent intencao = new Intent(MainActivity.this, RegisterActivity.class);
+        Intent intencao = new Intent(LoginActivity.this, RegisterActivity.class);
         // Inicializar a “Intenção” em questão.
         startActivity(intencao);
     }
