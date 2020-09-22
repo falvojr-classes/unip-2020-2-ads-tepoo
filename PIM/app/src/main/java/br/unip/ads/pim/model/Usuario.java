@@ -1,6 +1,6 @@
 package br.unip.ads.pim.model;
 
-public class Cliente {
+public class Usuario {
 	public Long id;
 	public String nome;
 	public String documento;
