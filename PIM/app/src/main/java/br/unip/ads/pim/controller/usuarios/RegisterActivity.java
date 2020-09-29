@@ -1,13 +1,13 @@
-package br.unip.ads.pim.controller;
+package br.unip.ads.pim.controller.usuarios;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,8 +15,8 @@ import java.util.Objects;
 
 import br.unip.ads.pim.R;
 import br.unip.ads.pim.databinding.ActivityRegisterBinding;
-import br.unip.ads.pim.model.Usuario;
-import br.unip.ads.pim.model.TipoCliente;
+import br.unip.ads.pim.model.usuarios.Usuario;
+import br.unip.ads.pim.model.usuarios.TipoCliente;
 import br.unip.ads.pim.service.RetrofitSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,28 +60,37 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()) {
-                            mostrarSnackbar("Sucesso total!");
+                            new MaterialAlertDialogBuilder(RegisterActivity.this)
+                                    .setTitle(R.string.title_dialog_alert)
+                                    .setMessage(getString(R.string.msg_register_success, usuario.nome))
+                                    .setCancelable(false)
+                                    .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> finish())
+                                    .show();
                         } else {
-                            mostrarSnackbar("Ocorreu um erro na API");
+                            //TODO Refatorar os métodos com códifo replicado em uma classe base.
+                            String errorMessage = RetrofitSingleton.get().parseErrorMessage(response);
+                            new MaterialAlertDialogBuilder(RegisterActivity.this)
+                                    .setTitle(R.string.title_dialog_alert)
+                                    .setMessage(errorMessage)
+                                    .setCancelable(false)
+                                    .setPositiveButton(android.R.string.ok, null)
+                                    .show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        String msg = "Ocorreu um erro inesperado";
+                        //TODO Refatorar os métodos com códifo replicado em uma classe base.
+                        String msg = getString(R.string.error_network);
                         Log.e(TAG, msg, t);
-                        mostrarSnackbar(msg);
+                        showSnackbar(msg);
                     }
                 });
             }
         });
     }
 
-    private void mostrarToast(String msg) {
-        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    private void mostrarSnackbar(String msg) {
+    private void showSnackbar(String msg) {
         Snackbar.make(binding.btRegister, msg, Snackbar.LENGTH_LONG).show();
     }
 }

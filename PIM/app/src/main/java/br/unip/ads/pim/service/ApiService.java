@@ -2,7 +2,7 @@ package br.unip.ads.pim.service;
 
 import java.util.List;
 
-import br.unip.ads.pim.model.Usuario;
+import br.unip.ads.pim.model.usuarios.Usuario;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -12,6 +12,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
+
+    //region Endpoint do domínio de Usuarios
 
     @GET("usuarios")
     Call<List<Usuario>> buscarTodos();
@@ -27,4 +29,13 @@ public interface ApiService {
 
     @DELETE("usuarios/{id}")
     Call<Void> excluir(@Path("id") Long id);
+
+    //endregion
+
+    //region Endpoint do domínio de Login
+
+    @POST("login")
+    Call<Usuario> login(@Body Usuario credenciais);
+
+    //endregion
 }

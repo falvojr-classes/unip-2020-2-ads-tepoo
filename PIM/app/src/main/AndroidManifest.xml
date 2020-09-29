@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
         <!-- https://stackoverflow.com/a/50834600/3072570 (permitir o consumo HTTP sem segurança) -->
         <activity
-            android:name=".controller.LoginActivity"
+            android:name=".controller.login.LoginActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.RegisterActivity"
+            android:name=".controller.usuarios.RegisterActivity"
             android:label="@string/title_register"
-            android:parentActivityName=".controller.LoginActivity" />
+            android:parentActivityName=".controller.login.LoginActivity" />
+        <activity
+            android:name=".controller.home.HomeActivity"
+            android:label="@string/title_home" />
     </application>
 
 </manifest>

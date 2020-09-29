@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_register">Registrar</string>
+    <string name="title_home">Home</string>
+    <string name="title_dialog_alert">Alerta</string>
 
     <string name="error_required_field">Campo obrigatório.</string>
     <string name="error_invalid_email">Email inválido.</string>
+    <string name="error_network">Verifique sua conexão com a Internet.</string>
 
     <string name="label_password">Senha</string>
     <string name="label_sign_in">Entrar</string>
@@ -13,4 +16,6 @@
     <string name="label_name">Nome</string>
     <string name="label_document">Documento</string>
     <string name="label_register">Registrar</string>
+
+    <string name="msg_register_success">Cliente %s regitrado com sucesso!</string>
 </resources>

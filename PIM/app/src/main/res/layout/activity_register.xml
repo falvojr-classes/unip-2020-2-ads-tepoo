@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            tools:context=".controller.RegisterActivity">
+            tools:context=".controller.usuarios.RegisterActivity">
 
             <RadioGroup
                 android:id="@+id/rg_person_type"
