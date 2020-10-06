@@ -10,16 +10,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitSingleton {
+public class RemoteDataSingleton {
 
-    private static final String TAG = RetrofitSingleton.class.getSimpleName();
+    private static final String TAG = RemoteDataSingleton.class.getSimpleName();
 
-    private static RetrofitSingleton INSTANCE = new RetrofitSingleton();
+    private static RemoteDataSingleton INSTANCE = new RemoteDataSingleton();
 
     private final Gson gson;
     public final ApiService apiService;
 
-    private RetrofitSingleton() {
+    private RemoteDataSingleton() {
         gson = new Gson();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
@@ -30,8 +30,8 @@ public class RetrofitSingleton {
         apiService = retrofit.create(ApiService.class);
     }
 
-    public static RetrofitSingleton get() {
-        return RetrofitSingleton.INSTANCE;
+    public static RemoteDataSingleton get() {
+        return RemoteDataSingleton.INSTANCE;
     }
 
     public <T> String parseErrorMessage(Response<T> response) {

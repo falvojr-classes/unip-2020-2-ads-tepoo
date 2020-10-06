@@ -9,23 +9,20 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Objects;
 
 import br.unip.ads.pim.R;
-import br.unip.ads.pim.controller.CicloVidaActivity;
+import br.unip.ads.pim.controller.common.BaseActivity;
+import br.unip.ads.pim.controller.common.BaseCallback;
 import br.unip.ads.pim.controller.home.HomeActivity;
 import br.unip.ads.pim.controller.usuarios.RegisterActivity;
 import br.unip.ads.pim.databinding.ActivityLoginBinding;
 import br.unip.ads.pim.model.usuarios.Usuario;
-import br.unip.ads.pim.service.RetrofitSingleton;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import br.unip.ads.pim.repository.LocalDataSingleton;
+import br.unip.ads.pim.service.RemoteDataSingleton;
+import okhttp3.Credentials;
 
-public class LoginActivity extends CicloVidaActivity {
+public class LoginActivity extends BaseActivity {
 
     private ActivityLoginBinding binding;
 
@@ -35,6 +32,13 @@ public class LoginActivity extends CicloVidaActivity {
         // Como usamos a tag <layout> no xml, podemos obter um objeto de Binding.
         // Isso envita o uso repetitivo do método findViewById.
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+        //TODO Remover esse teste.
+        LocalDataSingleton localData = LocalDataSingleton.get(LoginActivity.this);
+        Usuario usuario = localData.db.usuarioDao().findOne();
+        String token = localData.sharedPreferences.getString("token", "");
+        Log.d(TAG, usuario.toString());
+        Log.d(TAG, token);
     }
 
     public void onClickSignIn(View view) {
@@ -61,31 +65,24 @@ public class LoginActivity extends CicloVidaActivity {
         if (isValid) {
             // Cria as credenciais e executa a chamada de Login.
             Usuario credenciais = new Usuario(email, password);
-            RetrofitSingleton.get().apiService.login(credenciais).enqueue(new Callback<Usuario>() {
+            RemoteDataSingleton.get().apiService.login(credenciais).enqueue(new BaseCallback<Usuario>(this) {
                 @Override
-                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                    if (response.isSuccessful()) {
-                        //TODO Armazenar o Usuário e seu respectivo Token.
+                protected void onSuccess(Usuario usuario) {
+                    LocalDataSingleton localData = LocalDataSingleton.get(LoginActivity.this);
 
-                        //Redirecina para a Home.
-                        //TODO Limpar a pilha de telas.
-                        Intent intencao = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intencao);
-                    } else {
-                        //TODO Refatorar os métodos com códifo replicado em uma classe base.
-                        String errorMessage = RetrofitSingleton.get().parseErrorMessage(response);
-                        new MaterialAlertDialogBuilder(LoginActivity.this)
-                                .setTitle(R.string.title_dialog_alert)
-                                .setMessage(errorMessage)
-                                .setCancelable(false)
-                                .setPositiveButton(android.R.string.ok, null)
-                                .show();
-                    }
-                }
+                    //Armazenar o Usuário no SQLite (via Room).
+                    localData.db.usuarioDao().insert(usuario);
 
-                @Override
-                public void onFailure(Call<Usuario> call, Throwable t) {
-                    //TODO Refatorar os métodos com códifo replicado em uma classe base.
+                    //Armazenar o Token de acesso (via Shared Preferences).
+                    String tokenBasicAuth = Credentials.basic(email, password);
+                    localData.sharedPreferences.edit()
+                            .putString("token", tokenBasicAuth)
+                            .apply();
+
+                    //Redirecina para a Home.
+                    //TODO Limpar a pilha de telas.
+                    Intent intencao = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intencao);
                 }
             });
         }

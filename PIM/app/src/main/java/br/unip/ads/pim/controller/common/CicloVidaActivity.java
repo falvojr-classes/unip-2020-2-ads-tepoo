@@ -1,10 +1,11 @@
-package br.unip.ads.pim.controller;
+package br.unip.ads.pim.controller.common;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+@Deprecated
 public class CicloVidaActivity extends AppCompatActivity {
 
     private static final String TAG = CicloVidaActivity.class.getSimpleName();

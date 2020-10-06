@@ -22,10 +22,10 @@ public interface ApiService {
     Call<Usuario> buscarUm(@Path("id") Long id);
 
     @POST("usuarios")
-    Call<Void> inserir(@Body Usuario entidade);
+    Call<Usuario> inserir(@Body Usuario entidade);
 
     @PUT("usuarios/{id}")
-    Call<Void> alterar(@Path("id") Long id, @Body Usuario entidade);
+    Call<Usuario> alterar(@Path("id") Long id, @Body Usuario entidade);
 
     @DELETE("usuarios/{id}")
     Call<Void> excluir(@Path("id") Long id);

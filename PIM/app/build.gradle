@@ -38,16 +38,27 @@ android {
 }
 
 dependencies {
+    def androidx_appcompat_version = "1.2.0"
+    def androidx_constraint_layout_version = "2.0.1"
+    def google_material_design_version = "1.2.1"
+    def retrofit_version = "2.9.0"
+    def room_version = "2.2.5"
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Dependências nativas do AndroidX.
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version"
     // Dependência nativa do Material Design (padrão de UI/UX).
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation "com.google.android.material:material:$google_material_design_version"
 
     // Retrofit: biblioteca externa para o consumo da API REST (cliente HTTP).
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Room: biblioteca nativa de ORM (Mapeamento Objeto Relacional)
+    // Referência: https://developer.android.com/training/data-storage/room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
