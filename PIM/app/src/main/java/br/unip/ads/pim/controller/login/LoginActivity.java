@@ -18,8 +18,8 @@ import br.unip.ads.pim.controller.home.HomeActivity;
 import br.unip.ads.pim.controller.usuarios.RegisterActivity;
 import br.unip.ads.pim.databinding.ActivityLoginBinding;
 import br.unip.ads.pim.model.usuarios.Usuario;
-import br.unip.ads.pim.repository.LocalDataSingleton;
-import br.unip.ads.pim.service.RemoteDataSingleton;
+import br.unip.ads.pim.repository.local.LocalDataSingleton;
+import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 import okhttp3.Credentials;
 
 public class LoginActivity extends BaseActivity {

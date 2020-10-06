@@ -1,4 +1,4 @@
-package br.unip.ads.pim.repository;
+package br.unip.ads.pim.repository.local;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

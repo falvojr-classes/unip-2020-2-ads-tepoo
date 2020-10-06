@@ -1,11 +1,9 @@
-package br.unip.ads.pim.repository;
+package br.unip.ads.pim.repository.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.room.Room;
-
-import br.unip.ads.pim.repository.db.AppDatabase;
 
 import static br.unip.ads.pim.BuildConfig.APPLICATION_ID;
 

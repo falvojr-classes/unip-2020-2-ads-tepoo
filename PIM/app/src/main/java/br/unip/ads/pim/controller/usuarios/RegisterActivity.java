@@ -16,7 +16,7 @@ import br.unip.ads.pim.controller.common.BaseCallback;
 import br.unip.ads.pim.databinding.ActivityRegisterBinding;
 import br.unip.ads.pim.model.usuarios.TipoCliente;
 import br.unip.ads.pim.model.usuarios.Usuario;
-import br.unip.ads.pim.service.RemoteDataSingleton;
+import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 
 public class RegisterActivity extends BaseActivity {
 

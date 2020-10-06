@@ -6,7 +6,7 @@ import android.util.Log;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import br.unip.ads.pim.R;
-import br.unip.ads.pim.service.RemoteDataSingleton;
+import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

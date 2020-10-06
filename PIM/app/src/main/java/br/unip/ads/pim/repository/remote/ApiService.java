@@ -1,4 +1,4 @@
-package br.unip.ads.pim.service;
+package br.unip.ads.pim.repository.remote;
 
 import java.util.List;
 
