@@ -16,6 +16,7 @@
     <string name="label_name">Nome</string>
     <string name="label_document">Documento</string>
     <string name="label_register">Registrar</string>
+    <string name="label_save">Salvar</string>
 
     <string name="msg_register_success">Cliente %s regitrado com sucesso!</string>
 </resources>

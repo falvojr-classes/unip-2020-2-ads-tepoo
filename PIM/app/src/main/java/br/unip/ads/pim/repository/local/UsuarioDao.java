@@ -1,7 +1,6 @@
 package br.unip.ads.pim.repository.local;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -17,6 +16,6 @@ public interface UsuarioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Usuario usuario);
 
-    @Delete
-    void delete(Usuario usuario);
+    @Query("DELETE FROM Usuario")
+    void deleteAll();
 }

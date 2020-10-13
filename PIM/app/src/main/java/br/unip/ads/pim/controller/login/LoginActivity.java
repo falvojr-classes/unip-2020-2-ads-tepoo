@@ -3,7 +3,6 @@ package br.unip.ads.pim.controller.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
@@ -19,8 +18,11 @@ import br.unip.ads.pim.controller.usuarios.RegisterActivity;
 import br.unip.ads.pim.databinding.ActivityLoginBinding;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.LocalDataSingleton;
+import br.unip.ads.pim.repository.remote.ApiService;
 import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 import okhttp3.Credentials;
+
+import static br.unip.ads.pim.repository.remote.ApiService.AUTHORIZATION;
 
 public class LoginActivity extends BaseActivity {
 
@@ -32,13 +34,6 @@ public class LoginActivity extends BaseActivity {
         // Como usamos a tag <layout> no xml, podemos obter um objeto de Binding.
         // Isso envita o uso repetitivo do método findViewById.
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-
-        //TODO Remover esse teste.
-        LocalDataSingleton localData = LocalDataSingleton.get(LoginActivity.this);
-        Usuario usuario = localData.db.usuarioDao().findOne();
-        String token = localData.sharedPreferences.getString("token", "");
-        Log.d(TAG, usuario.toString());
-        Log.d(TAG, token);
     }
 
     public void onClickSignIn(View view) {
@@ -70,13 +65,15 @@ public class LoginActivity extends BaseActivity {
                 protected void onSuccess(Usuario usuario) {
                     LocalDataSingleton localData = LocalDataSingleton.get(LoginActivity.this);
 
-                    //Armazenar o Usuário no SQLite (via Room).
+                    //Limpa os usuários no SQLite (via Room), para garantir um unico usuário logado.
+                    localData.db.usuarioDao().deleteAll();
+                    //Armazenar o usuário autenticado no SQLite (via Room).
                     localData.db.usuarioDao().insert(usuario);
 
                     //Armazenar o Token de acesso (via Shared Preferences).
                     String tokenBasicAuth = Credentials.basic(email, password);
                     localData.sharedPreferences.edit()
-                            .putString("token", tokenBasicAuth)
+                            .putString(AUTHORIZATION, tokenBasicAuth)
                             .apply();
 
                     //Redirecina para a Home.

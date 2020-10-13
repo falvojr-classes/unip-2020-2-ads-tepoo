@@ -14,7 +14,7 @@ import br.unip.ads.pim.R;
 import br.unip.ads.pim.controller.common.BaseActivity;
 import br.unip.ads.pim.controller.common.BaseCallback;
 import br.unip.ads.pim.databinding.ActivityRegisterBinding;
-import br.unip.ads.pim.model.usuarios.TipoCliente;
+import br.unip.ads.pim.model.usuarios.TipoUsuario;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 
@@ -40,9 +40,9 @@ public class RegisterActivity extends BaseActivity {
                 MaterialRadioButton radioPersonType = findViewById(binding.rgPersonType.getCheckedRadioButtonId());
                 String labelPersonType = radioPersonType.getText().toString();
                 if (labelPersonType.equals(getString(R.string.label_physical_person))) {
-                    usuario.tipo = TipoCliente.PF;
+                    usuario.tipo = TipoUsuario.PF;
                 } else {
-                    usuario.tipo = TipoCliente.PJ;
+                    usuario.tipo = TipoUsuario.PJ;
                 }
                 // Preencher os demais dados (a partir dos campos TextInputEditText).
                 usuario.nome = Objects.requireNonNull(binding.etName.getText()).toString();

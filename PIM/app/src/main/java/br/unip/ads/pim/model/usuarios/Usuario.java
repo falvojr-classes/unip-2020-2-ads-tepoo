@@ -4,6 +4,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
+import br.unip.ads.pim.model.interesses.Interesse;
+
 @Entity
 public class Usuario {
 
@@ -14,8 +18,8 @@ public class Usuario {
 	public String email;
 	@Ignore
 	public String senha;
-	@Ignore
-	public TipoCliente tipo;
+	public TipoUsuario tipo;
+	public List<Interesse> interesses;
 
 	public Usuario() {
 		super();

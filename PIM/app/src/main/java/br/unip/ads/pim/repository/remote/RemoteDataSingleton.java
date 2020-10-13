@@ -16,7 +16,7 @@ public class RemoteDataSingleton {
 
     private static RemoteDataSingleton INSTANCE = new RemoteDataSingleton();
 
-    private final Gson gson;
+    public final Gson gson;
     public final ApiService apiService;
 
     private RemoteDataSingleton() {
