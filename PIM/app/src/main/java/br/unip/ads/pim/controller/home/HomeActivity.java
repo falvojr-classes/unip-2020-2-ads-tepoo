@@ -31,24 +31,31 @@ public class HomeActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         init();
+
+        //TODO Adicionar ícone de sair na Toolbar.
     }
 
     private void init() {
         LocalDataSingleton localData = LocalDataSingleton.get(this);
         // Recupera o Token de Basic Authorization para consumir a API
         String basicAuth = localData.sharedPreferences.getString(AUTHORIZATION, "");
+
+        //TODO Recuperar os dados do usuário da API para evitar desincronização de dados.
+
         RemoteDataSingleton.get().apiService.buscarInteresses(basicAuth).enqueue(new BaseCallback<List<Interesse>>(this) {
             @Override
             protected void onSuccess(List<Interesse> interesses) {
+
+                Usuario usuarioLogado = localData.db.usuarioDao().findOne();
 
                 ChipGroup chipGroup = binding.cgInteresses;
                 for (Interesse interesse: interesses) {
                     Chip chip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_choice, chipGroup, false);
                     chip.setText(interesse.descricao);
+                    boolean checked = usuarioLogado.interesses.stream().anyMatch(it -> it.id.equals(interesse.id));
+                    chip.setChecked(checked);
                     chipGroup.addView(chip);
                 }
-
-                Usuario usuarioLogado = localData.db.usuarioDao().findOne();
 
                 binding.etName.setText(usuarioLogado.nome);
                 binding.etDocument.setText(usuarioLogado.documento);

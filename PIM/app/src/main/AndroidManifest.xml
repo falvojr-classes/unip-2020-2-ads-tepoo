@@ -13,15 +13,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <!-- https://stackoverflow.com/a/50834600/3072570 (permitir o consumo HTTP sem segurança) -->
+
         <activity
-            android:name=".controller.login.LoginActivity"
-            android:theme="@style/NoActionBar">
+            android:name=".controller.splash.SplashActivity"
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".controller.login.LoginActivity"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".controller.usuarios.RegisterActivity"
             android:label="@string/title_register"

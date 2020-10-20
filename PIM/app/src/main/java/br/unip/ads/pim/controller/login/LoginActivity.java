@@ -18,7 +18,6 @@ import br.unip.ads.pim.controller.usuarios.RegisterActivity;
 import br.unip.ads.pim.databinding.ActivityLoginBinding;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.LocalDataSingleton;
-import br.unip.ads.pim.repository.remote.ApiService;
 import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 import okhttp3.Credentials;
 
@@ -78,8 +77,7 @@ public class LoginActivity extends BaseActivity {
 
                     //Redirecina para a Home.
                     //TODO Limpar a pilha de telas.
-                    Intent intencao = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intencao);
+                    startActivity(HomeActivity.class);
                 }
             });
         }

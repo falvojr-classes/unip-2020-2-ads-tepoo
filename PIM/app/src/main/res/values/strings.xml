@@ -19,6 +19,9 @@
     <string name="label_document">Document</string>
     <string name="label_register">Register</string>
     <string name="label_save">Save</string>
+    <string name="label_interests">Interests:</string>
 
     <string name="msg_register_success">Client %s registered successfully!</string>
+
+    <string name="action_exit">Exit</string>
 </resources>
