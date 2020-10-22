@@ -1,4 +1,4 @@
-package br.unip.ads.pim.controller.usuarios;
+package br.unip.ads.pim.controller.register;
 
 import android.os.Bundle;
 import android.view.View;

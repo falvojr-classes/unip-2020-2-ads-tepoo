@@ -14,7 +14,7 @@ import br.unip.ads.pim.R;
 import br.unip.ads.pim.controller.common.BaseActivity;
 import br.unip.ads.pim.controller.common.BaseCallback;
 import br.unip.ads.pim.controller.home.HomeActivity;
-import br.unip.ads.pim.controller.usuarios.RegisterActivity;
+import br.unip.ads.pim.controller.register.RegisterActivity;
 import br.unip.ads.pim.databinding.ActivityLoginBinding;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.LocalDataSingleton;
@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity {
 
                     //Redirecina para a Home.
                     //TODO Limpar a pilha de telas.
-                    startActivity(HomeActivity.class);
+                    startActivity(HomeActivity.class, true);
                 }
             });
         }

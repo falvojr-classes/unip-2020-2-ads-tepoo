@@ -16,6 +16,7 @@ public class Usuario {
 	public String nome;
 	public String documento;
 	public String email;
+	public String telefone;
 	@Ignore
 	public String senha;
 	public TipoUsuario tipo;

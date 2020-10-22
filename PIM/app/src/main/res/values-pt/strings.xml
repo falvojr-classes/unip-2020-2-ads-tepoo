@@ -18,8 +18,10 @@
     <string name="label_register">Registrar</string>
     <string name="label_save">Salvar</string>
     <string name="label_interests">Interesses:</string>
+    <string name="label_phone">Telefone</string>
 
     <string name="msg_register_success">Cliente %s regitrado com sucesso!</string>
 
     <string name="action_exit">Sair</string>
+    <string name="action_sync">Sincronizar</string>
 </resources>

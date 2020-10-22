@@ -23,9 +23,9 @@ public class SplashActivity extends BaseActivity {
         Usuario usuarioLogado = LocalDataSingleton.get(this).db.usuarioDao().findOne();
         new Handler().postDelayed(() -> {
             if (usuarioLogado == null) {
-                startActivity(LoginActivity.class);
+                startActivity(LoginActivity.class, true);
             } else {
-                startActivity(HomeActivity.class);
+                startActivity(HomeActivity.class, true);
             }
         }, 2000);
     }

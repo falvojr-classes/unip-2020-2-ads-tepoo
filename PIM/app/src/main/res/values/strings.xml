@@ -24,4 +24,6 @@
     <string name="msg_register_success">Client %s registered successfully!</string>
 
     <string name="action_exit">Exit</string>
+    <string name="label_phone">Phone</string>
+    <string name="action_sync">Synchronize</string>
 </resources>

@@ -38,7 +38,7 @@ public abstract class BaseCallback<T> implements Callback<T> {
         showAlert(msg);
     }
 
-    private void showAlert(String errorMessage) {
+    protected void showAlert(String errorMessage) {
         new MaterialAlertDialogBuilder(this.context)
                 .setTitle(R.string.title_dialog_alert)
                 .setMessage(errorMessage)

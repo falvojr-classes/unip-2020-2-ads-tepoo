@@ -5,9 +5,15 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/action_sync"
+        android:title="@string/action_sync"
+        android:icon="@drawable/ic_sync"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_exit"
         android:title="@string/action_exit"
         android:icon="@drawable/ic_exit"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

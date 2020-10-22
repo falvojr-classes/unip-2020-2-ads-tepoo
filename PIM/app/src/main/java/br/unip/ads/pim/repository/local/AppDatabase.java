@@ -8,7 +8,7 @@ import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.converters.InteresseConverter;
 import br.unip.ads.pim.repository.local.converters.TipoUsuarioConverter;
 
-@Database(entities = {Usuario.class}, version = 2)
+@Database(entities = {Usuario.class}, version = 3)
 @TypeConverters({TipoUsuarioConverter.class, InteresseConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 

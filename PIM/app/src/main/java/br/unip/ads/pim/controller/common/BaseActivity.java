@@ -8,8 +8,16 @@ public class BaseActivity extends AppCompatActivity {
 
     protected final String TAG = this.getClass().getSimpleName();
 
-    protected void startActivity(Class<?> destino) {
-        Intent intencao = new Intent(this, destino);
-        startActivity(intencao);
+
+    protected void startActivity(Class<?> activity) {
+        startActivity(activity, false);
+    }
+
+    protected void startActivity(Class<?> activity, boolean clearHistory) {
+        Intent intent = new Intent(this, activity);
+        if (clearHistory) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+        startActivity(intent);
     }
 }
