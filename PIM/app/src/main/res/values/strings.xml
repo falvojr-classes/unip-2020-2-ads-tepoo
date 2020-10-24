@@ -4,6 +4,7 @@
     <string name="title_register">Register</string>
     <string name="title_home">Home</string>
     <string name="title_dialog_alert">Alert</string>
+    <string name="title_dialog_info">Info</string>
 
     <string name="error_required_field">Required field.</string>
     <string name="error_invalid_email">Invalid email.</string>
@@ -20,10 +21,11 @@
     <string name="label_register">Register</string>
     <string name="label_save">Save</string>
     <string name="label_interests">Interests:</string>
+    <string name="label_phone">Phone</string>
 
     <string name="msg_register_success">Client %s registered successfully!</string>
+    <string name="msg_update_success">Updated data successfully.</string>
 
     <string name="action_exit">Exit</string>
-    <string name="label_phone">Phone</string>
     <string name="action_sync">Synchronize</string>
 </resources>

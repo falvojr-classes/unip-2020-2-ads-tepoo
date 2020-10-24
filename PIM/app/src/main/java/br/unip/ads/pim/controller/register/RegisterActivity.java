@@ -50,7 +50,8 @@ public class RegisterActivity extends BaseActivity {
                 usuario.email = Objects.requireNonNull(binding.etEmail.getText()).toString();
                 usuario.senha = Objects.requireNonNull(binding.etPassword.getText()).toString();
 
-                RemoteDataSingleton.get().apiService.inserir(usuario).enqueue(new BaseCallback<Usuario>(RegisterActivity.this) {
+                //TODO Implementar a validação dos dados, assim como fizemos no Login.
+                RemoteDataSingleton.get().apiService.inserirUsuario(usuario).enqueue(new BaseCallback<Usuario>(RegisterActivity.this) {
 
                     @Override
                     protected void onSuccess(Usuario usuario) {

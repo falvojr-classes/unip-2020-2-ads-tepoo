@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import br.unip.ads.pim.model.usuarios.Usuario;
 
@@ -15,6 +16,9 @@ public interface UsuarioDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Usuario usuario);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(Usuario usuario);
 
     @Query("DELETE FROM Usuario")
     void deleteAll();

@@ -2,7 +2,6 @@ package br.unip.ads.pim.controller.home;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.unip.ads.pim.R;
@@ -19,65 +19,130 @@ import br.unip.ads.pim.controller.common.BaseCallback;
 import br.unip.ads.pim.controller.login.LoginActivity;
 import br.unip.ads.pim.databinding.ActivityHomeBinding;
 import br.unip.ads.pim.model.interesses.Interesse;
+import br.unip.ads.pim.model.usuarios.TipoUsuario;
 import br.unip.ads.pim.model.usuarios.Usuario;
-import br.unip.ads.pim.repository.local.LocalDataSingleton;
-import br.unip.ads.pim.repository.remote.ApiService;
 import br.unip.ads.pim.repository.remote.RemoteDataSingleton;
 import retrofit2.Call;
-
-import static br.unip.ads.pim.repository.remote.ApiService.AUTHORIZATION;
 
 public class HomeActivity extends BaseActivity {
 
     private ActivityHomeBinding binding;
+
+    private Usuario usuarioLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        init();
-
-        //TODO Adicionar ícone de sair na Toolbar.
+        inicializar();
+        adicionarEventos();
     }
 
-    private void init() {
-        LocalDataSingleton localData = LocalDataSingleton.get(this);
-        // Recupera o Token de Basic Authorization para consumir a API
-        String basicAuth = localData.sharedPreferences.getString(AUTHORIZATION, "");
+    private void adicionarEventos() {
+        binding.btSave.setOnClickListener(view -> {
+            // Atribui os valores preenchidos pelo usuário para atualização.
+            Usuario usuarioAlterado = new Usuario();
+            usuarioAlterado.id = usuarioLocal.id;
+            usuarioAlterado.nome = binding.etName.getText().toString();
+            usuarioAlterado.documento = binding.etDocument.getText().toString();
+            usuarioAlterado.telefone = binding.etPhone.getText().toString();
+            // Realiza um tratamento especifico para os inputs do tipo 'radio':
+            usuarioAlterado.tipo = binding.rbLegalPerson.isChecked() ? TipoUsuario.PJ : TipoUsuario.PF;
+            // Identifica os interesses selecionados e os relaciona com o usuário a ser alterado
+            usuarioAlterado.interesses = new ArrayList<>();
+            for (Integer checkedChipId : binding.cgInteresses.getCheckedChipIds()) {
+                Long idInteresse = (Long) findViewById(checkedChipId).getTag();
+                usuarioAlterado.interesses.add(new Interesse(idInteresse));
+            }
+            //TODO Implementar a validação dos dados, assim como fizemos no Login.
+            getApi().alterarUsuario(getBasicAuthentication(), usuarioAlterado.id, usuarioAlterado).enqueue(new BaseCallback<Usuario>(this) {
+                @Override
+                protected void onSuccess(Usuario usuarioRemoto) {
+                    atualizarUsuarioLocal(usuarioRemoto);
+                    showInfo(R.string.msg_update_success);
+                }
+            });
+        });
+    }
 
-        //TODO Recuperar os dados do usuário da API para evitar desincronização de dados.
+    private void inicializar() {
+        usuarioLocal = super.getAppDatabase().usuarioDao().findOne();
+        buscarUsuarioRemotamente();
+    }
 
-        Usuario usuarioLogado = localData.db.usuarioDao().findOne();
-        binding.etName.setText(usuarioLogado.nome);
-        binding.etDocument.setText(usuarioLogado.documento);
-        binding.etEmail.setText(usuarioLogado.email);
-        binding.etPhone.setText(usuarioLogado.telefone);
+    private void buscarUsuarioRemotamente() {
+        String basicAuth = super.getBasicAuthentication();
+        RemoteDataSingleton.get().apiService.buscarUsuario(basicAuth, usuarioLocal.id).enqueue(new BaseCallback<Usuario>(this) {
+            @Override
+            protected void onSuccess(Usuario usuarioRemoto) {
+                atualizarUsuarioLocal(usuarioRemoto);
+                // Busca os interesses para criar os campos de Chips dinamicamente.
+                buscarInteressesRemotamente();
+            }
 
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                super.onFailure(call, t);
+                preencherUsuario(true);
+                preencherInteressesDinamicamente(usuarioLocal.interesses, true);
+            }
+        });
+    }
+
+    private void buscarInteressesRemotamente() {
+        String basicAuth = super.getBasicAuthentication();
         RemoteDataSingleton.get().apiService.buscarInteresses(basicAuth).enqueue(new BaseCallback<List<Interesse>>(this) {
             @Override
-            protected void onSuccess(List<Interesse> interesses) {
-                createInterests(interesses, usuarioLogado);
+            protected void onSuccess(List<Interesse> interessesRemotos) {
+                preencherUsuario(false);
+                preencherInteressesDinamicamente(interessesRemotos, false);
             }
 
             @Override
             public void onFailure(Call<List<Interesse>> call, Throwable t) {
                 super.onFailure(call, t);
-                createInterests(usuarioLogado.interesses, usuarioLogado);
+                preencherUsuario(true);
+                preencherInteressesDinamicamente(usuarioLocal.interesses, true);
             }
         });
     }
 
-    private void createInterests(List<Interesse> interesses, Usuario usuarioLogado) {
+    private void preencherUsuario(boolean offline) {
+        binding.tilName.setEnabled(!offline);
+        binding.tilDocument.setEnabled(!offline);
+        binding.tilPhone.setEnabled(!offline);
+        binding.rbPhysicalPerson.setEnabled(!offline);
+        binding.rbLegalPerson.setEnabled(!offline);
+        binding.btSave.setEnabled(!offline);
+
+        binding.etName.setText(usuarioLocal.nome);
+        binding.etDocument.setText(usuarioLocal.documento);
+        binding.etEmail.setText(usuarioLocal.email);
+        binding.etPhone.setText(usuarioLocal.telefone);
+        binding.rbPhysicalPerson.setChecked(TipoUsuario.PF.equals(usuarioLocal.tipo));
+        binding.rbLegalPerson.setChecked(TipoUsuario.PJ.equals(usuarioLocal.tipo));
+    }
+
+    private void preencherInteressesDinamicamente(List<Interesse> interesses, boolean offline) {
         ChipGroup chipGroup = binding.cgInteresses;
         chipGroup.removeAllViews();
         for (Interesse interesse: interesses) {
             Chip chip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_choice, chipGroup, false);
             chip.setText(interesse.descricao);
-            boolean checked = usuarioLogado.interesses.stream().anyMatch(it -> it.id.equals(interesse.id));
+            boolean checked = usuarioLocal.interesses.stream().anyMatch(it -> it.id.equals(interesse.id));
             chip.setChecked(checked);
+            chip.setEnabled(!offline);
+            chip.setTag(interesse.id);
             chipGroup.addView(chip);
         }
+    }
+
+    private void atualizarUsuarioLocal(Usuario usuarioRemoto) {
+        // Atualiza os dados do Usuario localmente.
+        getAppDatabase().usuarioDao().update(usuarioRemoto);
+        // Atualiza a instância do usuarioLocal.
+        usuarioLocal = getAppDatabase().usuarioDao().findOne();
     }
 
     @Override
@@ -90,8 +155,7 @@ public class HomeActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sync:
-                //TODO Sincronizar com o servidor (API).
-                init();
+                inicializar();
                 break;
             case R.id.action_exit:
                 logoff();
@@ -101,9 +165,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void logoff() {
-        LocalDataSingleton localData = LocalDataSingleton.get(this);
-        localData.db.usuarioDao().deleteAll();
-        localData.sharedPreferences.edit().clear().apply();
+        super.getAppDatabase().usuarioDao().deleteAll();
+        super.getSharedPrefs().edit().clear().apply();
         startActivity(LoginActivity.class, true);
     }
 }

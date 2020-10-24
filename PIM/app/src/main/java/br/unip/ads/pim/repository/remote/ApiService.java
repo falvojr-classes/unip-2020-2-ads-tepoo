@@ -17,29 +17,26 @@ public interface ApiService {
 
     String AUTHORIZATION = "Authorization";
 
-    //region Endpoint do domínio de Usuarios
-
-    @GET("usuarios")
-    Call<List<Usuario>> buscarUsuarios();
-
-    @GET("usuarios/{id}")
-    Call<Usuario> buscarUm(@Path("id") Long id);
-
-    @POST("usuarios")
-    Call<Usuario> inserir(@Body Usuario entidade);
-
-    @PUT("usuarios/{id}")
-    Call<Usuario> alterar(@Path("id") Long id, @Body Usuario entidade);
-
-    @DELETE("usuarios/{id}")
-    Call<Void> excluir(@Path("id") Long id);
-
-    //endregion
-
     //region Endpoint do domínio de Login
 
     @POST("login")
     Call<Usuario> login(@Body Usuario credenciais);
+
+    //endregion
+
+    //region Endpoint do domínio de Usuarios
+
+    @POST("usuarios")
+    Call<Usuario> inserirUsuario(@Body Usuario entidade);
+
+    @GET("usuarios")
+    Call<List<Usuario>> buscarUsuarios(@Header(AUTHORIZATION) String basicAuth);
+
+    @GET("usuarios/{id}")
+    Call<Usuario> buscarUsuario(@Header(AUTHORIZATION) String basicAuth, @Path("id") Long id);
+
+    @PUT("usuarios/{id}")
+    Call<Usuario> alterarUsuario(@Header(AUTHORIZATION) String basicAuth, @Path("id") Long id, @Body Usuario entidade);
 
     //endregion
 

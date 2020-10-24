@@ -3,6 +3,7 @@
     <string name="title_register">Registrar</string>
     <string name="title_home">Home</string>
     <string name="title_dialog_alert">Alerta</string>
+    <string name="title_dialog_info">Informação</string>
 
     <string name="error_required_field">Campo obrigatório.</string>
     <string name="error_invalid_email">Email inválido.</string>
@@ -21,6 +22,7 @@
     <string name="label_phone">Telefone</string>
 
     <string name="msg_register_success">Cliente %s regitrado com sucesso!</string>
+    <string name="msg_update_success">Dados atualizados com sucesso.</string>
 
     <string name="action_exit">Sair</string>
     <string name="action_sync">Sincronizar</string>
