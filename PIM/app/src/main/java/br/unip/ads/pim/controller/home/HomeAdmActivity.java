@@ -6,6 +6,8 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import java.util.List;
@@ -42,7 +44,25 @@ public class HomeAdmActivity extends BaseActivity {
         getApi().buscarUsuarios(getBasicAuthentication()).enqueue(new BaseCallback<List<Usuario>>(this) {
             @Override
             protected void onSuccess(List<Usuario> usuarios) {
-                adapter = new UsersAdapter(usuarios);
+                adapter = new UsersAdapter(usuarios) {
+
+                    @Override
+                    public void ligar(Usuario usuario) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse(String.format("tel:%s", usuario.telefone)));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void enviarEmail(Usuario usuario) {
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_EMAIL, usuario.email);
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Contato App PIM");
+                        intent.putExtra(Intent.EXTRA_TEXT, String.format("Olá %s, ", usuario.nome));
+                        startActivity(Intent.createChooser(intent, "Send Email"));
+                    }
+                };
                 binding.rvUsers.setAdapter(adapter);
             }
         });

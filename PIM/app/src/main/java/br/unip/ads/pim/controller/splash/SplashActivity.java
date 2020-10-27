@@ -5,7 +5,6 @@ import android.os.Handler;
 
 import br.unip.ads.pim.R;
 import br.unip.ads.pim.controller.common.BaseActivity;
-import br.unip.ads.pim.controller.home.HomeActivity;
 import br.unip.ads.pim.controller.login.LoginActivity;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.LocalDataSingleton;
@@ -23,9 +22,9 @@ public class SplashActivity extends BaseActivity {
         Usuario usuarioLogado = LocalDataSingleton.get(this).db.usuarioDao().findOne();
         new Handler().postDelayed(() -> {
             if (usuarioLogado == null) {
-                startActivity(LoginActivity.class, true);
+                redirecionar(LoginActivity.class, true);
             } else {
-                startActivity(HomeActivity.class, true);
+                redirecionarHome(usuarioLogado);
             }
         }, 2000);
     }

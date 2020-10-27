@@ -60,7 +60,7 @@ public class HomeActivity extends BaseActivity {
                 @Override
                 protected void onSuccess(Usuario usuarioRemoto) {
                     atualizarUsuarioLocal(usuarioRemoto);
-                    showInfo(R.string.msg_update_success);
+                    mostrarDialogInfo(R.string.msg_update_success);
                 }
             });
         });
@@ -167,6 +167,6 @@ public class HomeActivity extends BaseActivity {
     private void logoff() {
         super.getAppDatabase().usuarioDao().deleteAll();
         super.getSharedPrefs().edit().clear().apply();
-        startActivity(LoginActivity.class, true);
+        redirecionar(LoginActivity.class, true);
     }
 }

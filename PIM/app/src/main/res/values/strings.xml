@@ -22,6 +22,8 @@
     <string name="label_save">Save</string>
     <string name="label_interests">Interests:</string>
     <string name="label_phone">Phone</string>
+    <string name="label_send_email">Email</string>
+    <string name="label_call_phone">Call</string>
 
     <string name="msg_register_success">Client %s registered successfully!</string>
     <string name="msg_update_success">Updated data successfully.</string>

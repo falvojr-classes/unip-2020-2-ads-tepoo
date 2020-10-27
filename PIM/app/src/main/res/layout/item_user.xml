@@ -6,6 +6,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardElevation="8dp"
         android:layout_margin="@dimen/default_small_margin">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,22 +18,63 @@
                 android:id="@+id/tvNome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivPersonType"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Venilton FalvoJr" />
 
-            <TextView
+            <View
+                android:id="@+id/view"
+                style="@style/Divider.Horizontal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvNome"
+                app:layout_constraintTop_toBottomOf="@+id/tvDocument" />
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvDocument"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/default_small_margin"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvNome"
                 app:layout_constraintTop_toBottomOf="@+id/tvNome"
                 tools:text="45621856877" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btPhone"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_call_phone"
+                app:icon="@drawable/ic_phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btEmail"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:text="@string/label_send_email"
+                app:icon="@drawable/ic_email"
+                app:layout_constraintEnd_toStartOf="@+id/btPhone"
+                app:layout_constraintTop_toTopOf="@+id/btPhone" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPersonType"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorPrimaryDark"
+                tools:srcCompat="@drawable/ic_pj" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

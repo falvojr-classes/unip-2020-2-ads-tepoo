@@ -78,8 +78,7 @@ public class LoginActivity extends BaseActivity {
                             .apply();
 
                     //Redirecina para a Home.
-                    boolean ehAdm = TipoUsuario.ADM.equals(usuario.tipo);
-                    startActivity(ehAdm ? HomeAdmActivity.class : HomeActivity.class, true);
+                    redirecionarHome(usuario);
                 }
             });
         }

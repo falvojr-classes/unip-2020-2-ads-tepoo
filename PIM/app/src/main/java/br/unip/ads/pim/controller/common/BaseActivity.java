@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import br.unip.ads.pim.R;
+import br.unip.ads.pim.controller.home.HomeActivity;
+import br.unip.ads.pim.controller.home.HomeAdmActivity;
+import br.unip.ads.pim.model.usuarios.TipoUsuario;
+import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.AppDatabase;
 import br.unip.ads.pim.repository.local.LocalDataSingleton;
 import br.unip.ads.pim.repository.remote.ApiService;
@@ -36,11 +40,11 @@ public class BaseActivity extends AppCompatActivity {
         return RemoteDataSingleton.get().apiService;
     }
 
-    protected void startActivity(Class<?> activity) {
-        startActivity(activity, false);
+    protected void redirecionar(Class<?> activity) {
+        redirecionar(activity, false);
     }
 
-    protected void startActivity(Class<?> activity, boolean clearHistory) {
+    protected void redirecionar(Class<?> activity, boolean clearHistory) {
         Intent intent = new Intent(this, activity);
         if (clearHistory) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -48,7 +52,12 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void showInfo(@StringRes int info) {
+    protected void redirecionarHome(Usuario usuario) {
+        boolean ehAdm = TipoUsuario.ADM.equals(usuario.tipo);
+        redirecionar(ehAdm ? HomeAdmActivity.class : HomeActivity.class, true);
+    }
+
+    protected void mostrarDialogInfo(@StringRes int info) {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.title_dialog_info)
                 .setMessage(info)
