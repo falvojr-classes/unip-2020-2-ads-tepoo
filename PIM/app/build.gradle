@@ -42,7 +42,7 @@ android {
 
 dependencies {
     def androidx_appcompat_version = "1.2.0"
-    def androidx_constraint_layout_version = '2.0.2'
+    def androidx_constraint_layout_version = '2.0.4'
     def google_material_design_version = "1.2.1"
     def retrofit_version = "2.9.0"
     def room_version = "2.2.5"
