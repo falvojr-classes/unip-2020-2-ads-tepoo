@@ -1,14 +1,14 @@
 package br.unip.ads.pim.controller.home;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ import br.unip.ads.pim.model.usuarios.Usuario;
 public class HomeAdmActivity extends BaseActivity {
 
     private ActivityHomeAdmBinding binding;
-    private RecyclerView.Adapter adapter;
+    private UsersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home_adm);
 
-        criarRecyclerView();
+        inicializar();
     }
 
     /**
@@ -37,7 +37,7 @@ public class HomeAdmActivity extends BaseActivity {
      *     Create a List with RecyclerView
      *     </a>
      */
-    private void criarRecyclerView() {
+    private void inicializar() {
         binding.rvUsers.setHasFixedSize(true);
         binding.rvUsers.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,16 +55,34 @@ public class HomeAdmActivity extends BaseActivity {
 
                     @Override
                     public void enviarEmail(Usuario usuario) {
-                        Intent intent = new Intent(Intent.ACTION_SENDTO);
-                        intent.setType("text/plain");
-                        intent.putExtra(Intent.EXTRA_EMAIL, usuario.email);
-                        intent.putExtra(Intent.EXTRA_SUBJECT, "Contato App PIM");
-                        intent.putExtra(Intent.EXTRA_TEXT, String.format("Olá %s, ", usuario.nome));
-                        startActivity(Intent.createChooser(intent, "Send Email"));
+                        Uri uri = Uri.fromParts("mailto", usuario.email, null);
+                        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject));
+                        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_template_text, usuario.nome));
+                        startActivity(Intent.createChooser(intent, getString(R.string.email_choose_title)));
                     }
                 };
                 binding.rvUsers.setAdapter(adapter);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sync:
+                inicializar();
+                break;
+            case R.id.action_exit:
+                logoff();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

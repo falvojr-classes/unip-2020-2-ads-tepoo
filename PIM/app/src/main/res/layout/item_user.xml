@@ -26,14 +26,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Venilton FalvoJr" />
 
-            <View
-                android:id="@+id/view"
-                style="@style/Divider.Horizontal"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvNome"
-                app:layout_constraintTop_toBottomOf="@+id/tvDocument" />
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvDocument"
                 android:layout_width="0dp"
@@ -49,11 +41,11 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/default_margin"
                 android:text="@string/label_call_phone"
                 app:icon="@drawable/ic_phone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDocument" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btEmail"

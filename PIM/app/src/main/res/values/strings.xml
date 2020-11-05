@@ -30,4 +30,8 @@
 
     <string name="action_exit">Exit</string>
     <string name="action_sync">Synchronize</string>
+
+    <string name="email_subject">App PIM Contact</string>
+    <string name="email_template_text">Hello %s,</string>
+    <string name="email_choose_title">Escolha um App de Email…</string>
 </resources>

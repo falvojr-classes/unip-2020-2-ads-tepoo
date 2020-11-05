@@ -163,10 +163,4 @@ public class HomeActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void logoff() {
-        super.getAppDatabase().usuarioDao().deleteAll();
-        super.getSharedPrefs().edit().clear().apply();
-        redirecionar(LoginActivity.class, true);
-    }
 }

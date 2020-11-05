@@ -11,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import br.unip.ads.pim.R;
 import br.unip.ads.pim.controller.home.HomeActivity;
 import br.unip.ads.pim.controller.home.HomeAdmActivity;
+import br.unip.ads.pim.controller.login.LoginActivity;
 import br.unip.ads.pim.model.usuarios.TipoUsuario;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import br.unip.ads.pim.repository.local.AppDatabase;
@@ -64,5 +65,11 @@ public class BaseActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    protected void logoff() {
+        getAppDatabase().usuarioDao().deleteAll();
+        getSharedPrefs().edit().clear().apply();
+        redirecionar(LoginActivity.class, true);
     }
 }

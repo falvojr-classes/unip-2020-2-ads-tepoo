@@ -28,4 +28,8 @@
 
     <string name="action_exit">Sair</string>
     <string name="action_sync">Sincronizar</string>
+
+    <string name="email_subject">Contato App PIM</string>
+    <string name="email_template_text">Olá %s,</string>
+    <string name="email_choose_title">Choose an Email App…</string>
 </resources>
