@@ -6,7 +6,6 @@ import br.unip.ads.pim.model.interesses.Interesse;
 import br.unip.ads.pim.model.usuarios.Usuario;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
